@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultat - Axelligme 💖</title>
+    <style>
+        body {
+            background-color: #fff8f8;
+            font-family: 'Georgia', serif;
+            text-align: center;
+            padding: 40px;
+            color: #6b0f2c;
+        }
+        .container {
+            background-color: #fff0f5;
+            border-radius: 12px;
+            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 0 15px #eab0c0;
+        }
+        .score {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .texte {
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 Félicitations ! 🎉</h1>
+        <p class="score">Tu as obtenu un score de {{ score }}/{{ total }}</p>
+        <div class="texte">
+            {{ texte | safe }}
+        </div>
+    </div>
+</body>
+</html>

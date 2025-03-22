@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Axelligme 💌</title>
+    <style>
+        body {
+            background-color: #ffe6f0;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        input[type="text"] {
+            font-size: 18px;
+            padding: 8px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: white;
+            border: 1px solid pink;
+            cursor: pointer;
+        }
+        .card {
+            background-color: #fff0f5;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 10px #e3b0c0;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Étape {{ index }} / {{ total }}</h2>
+        <p>{{ question }}</p>
+        <form method="POST">
+            <input type="text" name="reponse" placeholder="Ta réponse ici..." required>
+            <br><br>
+            <button type="submit">Valider</button>
+        </form>
+    </div>
+</body>
+</html>
