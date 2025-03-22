@@ -67,11 +67,29 @@ def index():
 
     idx = session['index']
 
+    if idx >= len(lettre_codee):
+        texte_final = []
+        for i, (phrase, _) in enumerate(lettre_codee):
+            rep = session['answers'][i] if i < len(session['answers']) else "____"
+            texte_final.append(phrase.replace("____", rep))
+        final_text = "<br><br>".join(texte_final)
+        score = session['score']
+        total = len(lettre_codee)
+        session.clear()
+        return render_template("result.html", score=score, total=total, texte=final_text)
+
+    question, correct_answer = lettre_codee[idx]
+
+    # Sauter les questions sans réponse attendue
+    if correct_answer.strip() == "":
+        session['answers'].append("")
+        session['index'] += 1
+        return redirect(url_for('index'))
+
     if request.method == "POST":
         user_input = request.form.get("reponse", "").strip().lower()
-        correct_answer = lettre_codee[idx][1].lower()
 
-        if user_input == correct_answer:
+        if user_input == correct_answer.lower():
             session['score'] += 1
             session['answers'].append(correct_answer)
             session['index'] += 1
@@ -86,21 +104,8 @@ def index():
                 message = f"📢 La bonne réponse était : {correct_answer}"
             else:
                 message = f"❌ Encore un effort ma princesse ! ({session['attempts']}/3)"
-
         return redirect(url_for('index'))
 
-    if idx >= len(lettre_codee):
-        texte_final = []
-        for i, (phrase, _) in enumerate(lettre_codee):
-            rep = session['answers'][i] if i < len(session['answers']) else "____"
-            texte_final.append(phrase.replace("____", rep))
-        final_text = "<br><br>".join(texte_final)
-        score = session['score']
-        total = len(lettre_codee)
-        session.clear()
-        return render_template("result.html", score=score, total=total, texte=final_text)
-
-    question = lettre_codee[idx][0]
     return render_template("index.html", question=question, index=idx + 1, total=len(lettre_codee))
 
 if __name__ == "__main__":

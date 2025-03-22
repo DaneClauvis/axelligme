@@ -1,45 +1,103 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Axelligme 💌</title>
-    <style>
-        body {
-            background-color: #ffe6f0;
-            font-family: 'Arial', sans-serif;
-            text-align: center;
-            padding: 40px;
-        }
-        input[type="text"] {
-            font-size: 18px;
-            padding: 8px;
-            width: 300px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: white;
-            border: 1px solid pink;
-            cursor: pointer;
-        }
-        .card {
-            background-color: #fff0f5;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 0 10px #e3b0c0;
-            display: inline-block;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Axelligme 💌</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, #ffe6f0, #fff);
+      color: #5a2a3c;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(200, 100, 150, 0.2);
+    }
+    img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #fbb6c6;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 26px;
+      color: #c2185b;
+    }
+    p {
+      font-size: 18px;
+    }
+    input[type="text"] {
+      font-size: 16px;
+      padding: 10px;
+      width: 80%;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 15px;
+      background-color: #ffb6c1;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #e17b95;
+    }
+    .progress {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 10px;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
-    <div class="card">
-        <h2>Étape {{ index }} / {{ total }}</h2>
-        <p>{{ question }}</p>
-        <form method="POST">
-            <input type="text" name="reponse" placeholder="Ta réponse ici..." required>
-            <br><br>
-            <button type="submit">Valider</button>
-        </form>
+
+  <!-- Musique en fond -->
+  <audio autoplay loop>
+    <source src="{{ url_for('static', filename='romantic.mp3') }}" type="audio/mpeg">
+    Ton navigateur ne supporte pas l'audio HTML5.
+  </audio>
+
+  <div class="container">
+    <!-- Photo -->
+    <img src="{{ url_for('static', filename='axelligme.png') }}" alt="Photo d'Axelle & toi">
+    
+    <!-- Message d'accueil -->
+    <h1>Bienvenue dans ton Axelligme 💖</h1>
+    <p class="progress">Question {{ index }} / {{ total }}</p>
+    
+    <!-- Question -->
+    <p>{{ question }}</p>
+
+    <!-- Réponse -->
+    <form method="POST">
+      <input type="text" name="reponse" placeholder="Ta réponse ici..." required>
+      <br>
+      <button type="submit">Valider</button>
+    </form>
+
+    <div class="footer">
+      Avec tout mon amour, ton A.C 💌
     </div>
+  </div>
 </body>
 </html>
