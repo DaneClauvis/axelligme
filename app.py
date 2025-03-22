@@ -81,7 +81,7 @@ def index():
     question, correct_answer = lettre_codee[idx]
 
     # Sauter les questions sans réponse attendue
-    if correct_answer.strip() == "":
+    if isinstance(correct_answer, str) and correct_answer.strip() == "":
         session['answers'].append("")
         session['index'] += 1
         return redirect(url_for('index'))
