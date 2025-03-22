@@ -89,8 +89,9 @@ def index():
 
     if request.method == "POST":
         user_input = request.form.get("reponse", "").strip().lower()
+        expected_answer = correct_answer.lower() if isinstance(correct_answer, str) else str(correct_answer[0]).lower()
 
-        if user_input == correct_answer.lower():
+        if user_input == expected_answer:
             session['score'] += 1
             session['answers'].append(correct_answer)
             session['index'] += 1
