@@ -64,6 +64,7 @@ def index():
         session['score'] = 0
         session['attempts'] = 0
         session['answers'] = []
+        session['last_message'] = ""
 
     idx = session['index']
 
@@ -94,19 +95,19 @@ def index():
             session['answers'].append(correct_answer)
             session['index'] += 1
             session['attempts'] = 0
-            message = "✅ Bravo mon amour, tu avances un peu plus vers mon cœur !"
+            session['last_message'] = "✅ Bravo mon amour, tu avances un peu plus vers mon cœur !"
         else:
             session['attempts'] += 1
             if session['attempts'] >= 3:
                 session['answers'].append(correct_answer)
                 session['index'] += 1
                 session['attempts'] = 0
-                message = f"📢 La bonne réponse était : {correct_answer}"
+                session['last_message'] = f"📢 La bonne réponse était : {correct_answer}"
             else:
-                message = f"❌ Encore un effort ma princesse ! ({session['attempts']}/3)"
+                session['last_message'] = f"❌ Encore un effort ma princesse ! ({session['attempts']}/3)"
         return redirect(url_for('index'))
 
-    return render_template("index.html", question=question, index=idx + 1, total=len(lettre_codee))
+    return render_template("index.html", question=question, index=idx + 1, total=len(lettre_codee), message=session.get("last_message", ""))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
