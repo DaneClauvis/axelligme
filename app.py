@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import os
 
 app = Flask(__name__)
 app.secret_key = 'axelligme-secret-key'
@@ -93,7 +94,7 @@ def index():
         for i, (phrase, _) in enumerate(lettre_codee):
             rep = session['answers'][i] if i < len(session['answers']) else "____"
             texte_final.append(phrase.replace("____", rep))
-        final_text = "<br><br>".joain(texte_final)
+        final_text = "<br><br>".join(texte_final)
         score = session['score']
         total = len(lettre_codee)
         session.clear()
@@ -103,4 +104,5 @@ def index():
     return render_template("index.html", question=question, index=idx + 1, total=len(lettre_codee))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
